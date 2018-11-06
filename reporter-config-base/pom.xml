@@ -15,8 +15,8 @@
 -->
     <parent>
         <artifactId>reporter-config-parent</artifactId>
-        <groupId>com.addthis.metrics</groupId>
-        <version>3.0.3</version>
+        <groupId>com.despegar</groupId>
+        <version>3.0.4-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>

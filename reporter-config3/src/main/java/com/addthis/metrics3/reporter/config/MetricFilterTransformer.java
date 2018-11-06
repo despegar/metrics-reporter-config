@@ -38,15 +38,20 @@ public class MetricFilterTransformer
         @Override
         public boolean matches(String name, Metric metric)
         {
-            log.trace("Checking Metric name: {} {}", new Object[] {name, unqualifyMetricName(name)});
+            boolean allow;
             if (predicate.getUseQualifiedName())
             {
-                return predicate.allowString(name);
+                allow = predicate.allowString(name);
             }
             else
             {
-                return predicate.allowString(unqualifyMetricName(name));
+                allow = predicate.allowString(unqualifyMetricName(name));
             }
+            if (!allow)
+                log.trace("Filtered raw metric {}", name);
+            else
+                log.trace("Reported raw metric {}", name);
+            return allow;
         }
 
         private static String unqualifyMetricName(String name)

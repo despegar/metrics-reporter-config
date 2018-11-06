@@ -15,9 +15,9 @@
 -->
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.addthis.metrics</groupId>
+        <groupId>com.despegar</groupId>
         <artifactId>reporter-config-parent</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>reporter-config3</artifactId>
@@ -26,9 +26,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.addthis.metrics</groupId>
+            <groupId>com.despegar</groupId>
             <artifactId>reporter-config-base</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
@@ -93,6 +93,19 @@
             <artifactId>simpleclient_servlet</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.newrelic.agent.java</groupId>
+            <artifactId>newrelic-api</artifactId>
+            <version>4.2.0</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cassandra</groupId>
+            <artifactId>cassandra-all</artifactId>
+            <version>3.0.13</version>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 
 </project>

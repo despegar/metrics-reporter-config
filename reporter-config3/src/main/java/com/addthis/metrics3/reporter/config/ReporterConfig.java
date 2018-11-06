@@ -53,6 +53,8 @@ public class ReporterConfig extends AbstractReporterConfig {
     private List<ZabbixReporterConfig> zabbix;
     @Valid
     private List<PrometheusReporterConfig> prometheus;
+    @Valid
+    private List<NewRelicReporterConfig> newrelic;
 
     public List<ConsoleReporterConfig> getConsole() {
         return console;
@@ -255,6 +257,23 @@ public class ReporterConfig extends AbstractReporterConfig {
         return !failures;
     }
 
+    public boolean enableNewRelic(MetricRegistry registry){
+        boolean failures = false;
+        if (newrelic == null)
+        {
+            log.debug("Asked to enable newrelic, but it was not configured");
+            return false;
+        }
+        for (NewRelicReporterConfig config : newrelic)
+        {
+            if (!config.enable(registry))
+            {
+                failures = true;
+            }
+        }
+        return !failures;
+    }
+
     public boolean enableAll(MetricRegistry registry) {
         boolean enabled = false;
         if (console != null && enableConsole(registry)) {
@@ -281,7 +300,11 @@ public class ReporterConfig extends AbstractReporterConfig {
         if (zabbix != null && enableZabbix(registry)) {
             enabled = true;
         }
+
         if (prometheus != null && enablePrometheus(registry)) {
+            enabled = true;
+        }
+        if (newrelic != null && enableNewRelic(registry)) {
             enabled = true;
         }
         if (!enabled) {
@@ -323,4 +346,11 @@ public class ReporterConfig extends AbstractReporterConfig {
         return AbstractReporterConfig.loadFromFile(fileName, ReporterConfig.class);
     }
 
+    public List<NewRelicReporterConfig> getNewrelic() {
+        return newrelic;
+    }
+
+    public void setNewrelic(List<NewRelicReporterConfig> newrelic) {
+        this.newrelic = newrelic;
+    }
 }
